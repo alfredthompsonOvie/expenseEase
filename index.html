@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link href="./src/output.css" rel="stylesheet" />
+
+		<script
+			src="https://kit.fontawesome.com/2d132899e6.js"
+			crossorigin="anonymous"
+		></script>
+
+		<title>ExpenseEase</title>
+	</head>
+	<body>
+		<main
+			id="app"
+			class="max-w-[1400px] grid grid-cols-[1fr_10fr_1fr] relative min-h-screen bg-background text-text z-1 before:-z-1 before:content-[''] before:absolute before:top-[0] before:left-[0] before:w-full before:h-[10em] before:bg-listItem"
+		>
+			<section class="col-[2] relative max-w-[800px] mx-auto w-full">
+				<header
+					class="flex justify-between items-center gap-[1em] px-[0] py-[1em] flex-wrap mt-1"
+				>
+					<h1 class="projectName"><span>Expense</span><span class="name">Ease</span></h1>
+
+					<button class="cta" id="newTransactionBtn">New Transaction</button>
+				</header>
+				<section>
+					<section class="topHeader">
+						<!-- position relative -->
+						<section class="relative card open">
+							<!-- color white -->
+							<header>
+								<p>
+									Budget: <span id="currency"></span
+									><span id="budgetEl"></span>
+								</p>
+								<!-- use plus icon -->
+								<button id="showBudget" class="budgetIcon">+</button>
+							</header>
+							<!-- position absolute -->
+							<form class="form_field addBudget" id="budgetForm">
+								<label for="budget"></label>
+								<input type="number" placeholder="20000" id="budgetInput" />
+								<button id="submitBudget" class="addBudgetBtn">add</button>
+							</form>
+						</section>
+						<section class="card">
+							<!-- color green -->
+							<p>
+								Remaining: <span id="currency"></span
+								><span id="remainingEl"></span>
+							</p>
+						</section>
+						<section class="card">
+							<!-- color red -->
+							<p>
+								Expenses: <span id="currency"></span
+								><span id="expensesEl"></span>
+							</p>
+						</section>
+					</section>
+					<!-- transaction list -->
+					<section class="transactions" id="transactions">
+						<header class="transaction__header">
+							<h1 class="transaction__title">Transactons</h1>
+							<section class="expenseItem first" id="expenseItem__header">
+								<!-- title -->
+								<p><span>Title</span></p>
+								<!-- amount  grey the span: (50x8)-->
+								<p><span>Amount</span></p>
+								<!-- category -->
+								<p><span>Category</span></p>
+								<!-- date -->
+								<p><span>Date</span></p>
+								<section class="btns">
+									<p>buttons</p>
+								</section>
+							</section>
+						</header>
+
+						<ul class="transactionList" id="transactionList"></ul>
+					</section>
+				</section>
+			</section>
+		</main>
+		<!-- add a new expense -->
+		<section class="modal" id="modal">
+			<form class="form" id="expenseForm" data-type="" data-editId="">
+				<header>
+					<h1>Add a new expense</h1>
+					<p>its a good habit to keep track of your expenditure</p>
+				</header>
+
+				<!-- placeholder that when you interact with input field moves to the top border of the input field -->
+				<section class="form__field">
+					<label for="amount"></label>
+					<input type="number" step="0.01" placeholder="300" id="amountExpense" required/>
+				</section>
+				<section class="form__field">
+					<label for="expenseTitle"></label>
+					<input type="text" placeholder="eg Fuel or Cafe" id="expenseTitle" required />
+				</section>
+
+				<input type="hidden" name="hidden" value="" id="hiddenInput"/>
+				<section class="category">
+					<h1>Category</h1>
+					<section class="options">
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="food"
+								id="category__food"
+							/>
+							<label for="category__food">
+								<span>Food</span>
+							</label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="drinks"
+								id="category__drinks"
+							/>
+							<label for="category__drinks">
+								<span>Drinks</span>
+							</label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="fuel"
+								id="category__fuel"
+							/>
+							<label for="category__fuel">
+								<span>Fuel</span>
+							</label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="travel"
+								id="category__travel"
+							/>
+							<label for="category__travel"> <span>Travel</span> </label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="Groceries"
+								id="category__groceries"
+							/>
+							<label for="category__groceries"> <span>Groceries</span> </label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="electricity"
+								id="category__electricity"
+							/>
+							<label for="category__electricity">
+								<span>Electricity</span>
+							</label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="data"
+								id="category__data"
+							/>
+							<label for="category__data"> <span>Data</span> </label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="airtime"
+								id="category__airtime"
+							/>
+							<label for="category__airtime"> <span>Airtime</span> </label>
+						</section>
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="shopping"
+								id="category__shopping"
+							/>
+							<label for="category__shopping"> <span>Shopping</span> </label>
+						</section>
+
+						<section>
+							<input
+								type="radio"
+								name="category"
+								value="other"
+								id="category__other"
+							/>
+							<label for="category__other">
+								<span>Other</span>
+							</label>
+						</section>
+					</section>
+				</section>
+				<button class="submit" id="submit">Add</button>
+			</form>
+		</section>
+		<!-- message -->
+		<!-- <section class="message" id="message">
+						<section>
+							<p>Welcome! Begin by adding to your budget</p>
+							<button class="cta__alt">
+								Add to your budget
+							</button>
+						</section>
+					</section> -->
+		<script type="module" src="/main.js"></script>
+	</body>
+</html>
