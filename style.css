@@ -25,18 +25,35 @@
 --accent: #4a85bb;
 --listItem: #14202b;
 --background-alt: #131a22;
-/* --background-alt: #101922; */
-
 
 }
-.projectName {
-  font-weight: bolder;
-  font-size: 1.5rem;
-  text-shadow: 5px 5px 4px #000;
+@layer components {
+
+  .logo {
+    width: 1em;
+    margin-right: .5em;
+    filter: invert(.5)sepia(1)hue-rotate(80deg)saturate(10);
+  }
+  .icon {
+    width: 1em;
+    filter: invert(.5)sepia(1)hue-rotate(80deg)saturate(10);
+
+  }
+  .icon__del {
+    width: 1.2em;
+    filter: invert(.5)sepia(1)hue-rotate(300deg)saturate(10);
+  }
+  .projectName {
+    font-weight: bolder;
+    font-size: 1.5rem;
+    text-shadow: 5px 5px 4px #000;
+    display: flex;
+  } 
 }
-.name {
+/* */
+/* .name {
   color: #33f35d;
-}
+} */
 .header {
   display: flex;
   justify-content: space-between;
@@ -45,7 +62,7 @@
 }
 .budgetIcon {
   font-size: 1.5rem;
-  /* background-color: #33f35d; */
+  
   background-color: var(--accent);
   border-radius: 50%;
   width: 1.5em;
@@ -87,7 +104,6 @@
 }
 .card {
   background-color: var(--secondary);
-  /* background-color: var(--accent); */
   color: var(--text);
   padding: 1em;
   border-radius: 4px;
@@ -105,20 +121,45 @@
   width: 100%;
 }
 .addBudget {
-  position: absolute;
+  position: fixed;
   left: 0;
   right: 0;
-  top: 3.5em;
+  top: 0;
   width: 100%;
-  margin-top: 0.3em;
+  height: 100%;
   padding: 0 .4em;
   display: none;
   z-index: 2;
+  background-color: rgba(0,0,0,0.5);
+
+}
+.budgetContainer {
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  max-width: 800px;
+  width: 100%;
+  margin-inline: auto;
+}
+.form_field {
+  align-self: start;
+  display: flex;
+  max-width: 180px;
+  width: 100%;
+  margin-top: 11em;
 }
 .isEditingBudget {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
 }
-
+.closeBudget {
+  position: absolute;
+  left: 50%;
+  top: 1.3em;
+  transform: translateX(50%);
+  font-size: 2em;
+  transform: rotate(45deg);
+}
 .addBudget input {
   width: 100%;
   padding: .4em 0em .4em .8em;

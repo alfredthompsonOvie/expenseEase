@@ -3,6 +3,8 @@
 const newTransactionBtn = document.querySelector("#newTransactionBtn");
 const showBudgetForm = document.querySelector("#showBudget");
 
+const budgetFormContainer = document.querySelector("#budgetFormContainer");
+const budgetContainer = document.querySelector("#budgetContainer");
 const budgetForm = document.querySelector("#budgetForm");
 const budgetInput = document.querySelector("#budgetInput");
 // const submitBudget = document.querySelector("#submitBudget");
@@ -25,19 +27,21 @@ const transactionList = document.querySelector("#transactionList");
 const delBtn = document.querySelector("#delBtn");
 const editBtn = document.querySelector("#editBtn");
 
+const app = document.querySelector("#app");
+
 // data - ui state
 let budget, remainingBudget, expense, expenseList;
 
 // init
 function init() {
-	budget = parseFloat(localStorage.getItem("budget")) || 0.00;
+	budget = parseFloat(localStorage.getItem("budget")) || 0.0;
 	expenseList = JSON.parse(localStorage.getItem("expenseList")) || [];
 
 	expense = expenseList.length
 		? expenseList.reduce((acc, curr) => acc + curr.amount, 0)
-		: 0.00;
+		: 0.0;
 
-	remainingBudget = (budget - expense).toFixed(2);
+	remainingBudget = budget - expense;
 
 	updateUI();
 
@@ -52,20 +56,27 @@ init();
 function handleBudgetForm(e) {
 	e.preventDefault();
 
-	budget = (budget + parseFloat(budgetInput.value)).toFixed(2);
-	remainingBudget = (budget - expense).toFixed(2);
+	const amount = parseFloat(budgetInput.value);
+
+	if (!amount) {
+		budgetFormContainer.classList.remove("isEditingBudget");
+		return;
+	}
+
+	budget = budget + amount;
+	remainingBudget = budget - expense;
 
 	updateUI();
 
 	localStorage.setItem("budget", budget);
 
 	budgetInput.value = "";
-	budgetForm.classList.remove("isEditingBudget");
+	budgetFormContainer.classList.remove("isEditingBudget");
 	hasBudget();
 }
 function handleExpenseForm(e) {
 	e.preventDefault();
-	const amount = parseFloat(amountExpense.value).toFixed(2);
+	const amount = parseFloat(amountExpense.value);
 	const title = expenseTitle.value;
 	const category = getSelectedCategory();
 
@@ -127,7 +138,6 @@ function handleExpenseForm(e) {
 		id: crypto.randomUUID(),
 	};
 
-
 	expenseList = [...expenseList, expenseObj];
 	localStorage.setItem("expenseList", JSON.stringify(expenseList));
 
@@ -144,7 +154,7 @@ function handleExpenseForm(e) {
 
 // EVENT LISTENERS
 showBudgetForm.addEventListener("click", () => {
-	budgetForm.classList.toggle("isEditingBudget");
+	budgetFormContainer.classList.add("isEditingBudget");
 	budgetInput.focus();
 });
 
@@ -164,6 +174,13 @@ expenseModal.addEventListener("click", (e) => {
 		expenseModal.classList.remove("isOpen");
 	}
 });
+budgetFormContainer.addEventListener("click", (e) => {
+	const modal = e.target.closest("#budgetContainer");
+
+	if (e.target === modal) {
+		budgetFormContainer.classList.remove("isEditingBudget");
+	}
+});
 
 // !DELETE_TRANSACTION
 transactionList.addEventListener("click", (e) => {
@@ -177,6 +194,8 @@ transactionList.addEventListener("click", (e) => {
 
 	displayExpenses();
 	updateFinances();
+
+	localStorage.setItem("expenseList", JSON.stringify(expenseList));
 });
 
 // !EDIT_TRANSACTION
@@ -186,10 +205,9 @@ transactionList.addEventListener("click", (e) => {
 
 	const id = editBtn.dataset.id;
 
-	const transactionArr = expenseList.filter(
+	const transaction = expenseList.filter(
 		(transaction) => transaction.id === id
-	);
-	const transaction = transactionArr[0];
+	)[0];
 
 	const { amount, category, title } = transaction;
 
@@ -205,6 +223,17 @@ transactionList.addEventListener("click", (e) => {
 		if (btn.value === category) btn.checked = true;
 	});
 });
+
+// app.addEventListener("click", (e) => {
+// 	const target = e.target.querySelector("#budgetForm")
+// 	const isOpen = budgetForm.classList.contains("isEditingBudget");
+// 	// if (isOpen) {
+// 	// 	budgetForm.classList.remove("isEditingBudget");
+
+// 	// 	console.log("budgetForm")
+// 	// }
+// 	console.log(target)
+// })
 
 // utils functions
 function updateUI() {
@@ -238,29 +267,34 @@ function displayExpenses() {
 	expenseList.forEach((expense) => {
 		const { amount, category, date, id, title } = expense;
 
-		const markup = `<li class="expenseItem" id="expenseItem">
+		const markup = `<li class="p-[1em] rounded-[4px] md:grid md:grid-cols-[repeat(4,_1fr)_auto] md:gap-[1em] bg-listItem" id="expenseItem">
                   <p>
                     <span class="cardTitleHeader">Title:</span>
-                    <span>${title}</span>
+                    <span class="capitalize">${title}</span>
                   </p>
-                  <p>
+                  <p class="flex">
                     <span class="cardTitleHeader">Amount:</span>
-                    <span>N${amount.toFixed(2)}</span>
+										<img src="/naira.svg" alt="currency" class="icon" />
+                    <span>${amount}</span>
                   </p>
                   <p>
                     <span class="cardTitleHeader">Category:</span>
-                    <span>${category}</span>
+                    <span class="capitalize">${category}</span>
                   </p>
   
                   <p>
                     <span class="cardTitleHeader">Date:</span>
                     <span>${date}</span>
                   </p>
-                  <section class="btns">
+                  <section class="flex items-center gap-4 mt-4 md:mt-0">
   
-                    <button id="editBtn" data-id=${id}>edit</button>
+                    <button id="editBtn" data-id=${id}>
+											<img src="/edit.svg" alt="currency" class="icon" />
+										</button>
   
-                    <button id="delBtn" data-id=${id}>del</button>
+                    <button id="delBtn" data-id=${id}>
+											<img src="/delete1.svg" alt="currency" class="icon__del" />
+										</button>
                   </section>
                 </li>`;
 
@@ -282,7 +316,7 @@ function hasBudget() {
 function hasTransactionList() {
 	expenseList.length > 0
 		? transactionsSection.classList.add("hasMadeTransaction")
-		: null;
+		: transactionsSection.classList.remove("hasMadeTransaction");
 }
 
 function resetExpenseForm() {
