@@ -19,10 +19,7 @@ Develop a Budget Tracker application that allows users to manage their finances 
   - [Links](#links)
 - [My process](#my-process)
   - [Built with](#built-with)
-  - [how to set it up](#how-to-set-it-up)
-  - [What I learned](#what-i-learned)
   - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
 
 ## Overview
@@ -59,51 +56,12 @@ Users should be able to:
 - Flexbox
 - CSS Grid
 - Mobile-first workflow
-- [Vite](https://vite.org/) 
-- [TailwindCSS](https://tailwindcss.com/) - For styles
-
-### how to set it up
-After cloning this project or downloading the zip file, run the following command
-
-```bash
-npm install
-```
-
-To start the project:
-```bash
-npm run dev
-```
-
-open a new terminal and run the following command:
-```bash
-npx tailwindcss -i ./style.css -o ./src/output.css --watch
-```
 
 
-### What I learned
-
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
-
-
-```js
-	const totalAmount =
-		expenseForm.dataset.type === "edit"
-			? amount +
-			  (expense -
-					expenseList.filter(
-						(transaction) => transaction.id === expenseForm.dataset.editId
-					)[0].amount)
-			: amount + expense;
-```
 
 ### Continued development
 
 while i'm very comfortable working with vanilla css i want to be as good with tailwindCSS as i am with vanilla css.
-
-
-### Useful resources
-
-- [TailwindCSS](https://www.example.com) - This helped me with tailwindCSS's documentation
 
 
 ## Author
