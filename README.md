@@ -66,9 +66,6 @@ while i'm very comfortable working with vanilla css i want to be as good with ta
 
 ## Author
 
-- Website - [Alfred Thompson Ovie](https://www.your-site.com)
-- GitHub - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- LinkedIn - [@yourusername](https://www.twitter.com/yourusername)
-
-
-
+- Website - [Alfred Thompson Ovie](https://ov7.vercel.app)
+- GitHub - [@alfredthompsonOvie](https://github.com/alfredthompsonOvie/)
+- LinkedIn - [@alfredthompsonovie](https://www.linkedin.com/in/alfredthompsonovie/)
