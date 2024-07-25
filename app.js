@@ -15,10 +15,11 @@ const expensesEl = document.querySelector("#expensesEl");
 
 // Expense modal
 const expenseModal = document.querySelector("#modal");
+const overlay = document.querySelector("#overlay");
+
 const expenseForm = document.querySelector("#expenseForm");
 const amountExpense = document.querySelector("#amountExpense");
 const expenseTitle = document.querySelector("#expenseTitle");
-// const submitExpense = document.querySelector("#submit");
 
 const transactionsSection = document.querySelector("#transactions");
 const transactionList = document.querySelector("#transactionList");
@@ -34,12 +35,12 @@ let budget, remainingBudget, expense, expenseList;
 
 // init
 function init() {
-	budget = parseFloat(localStorage.getItem("budget")) || 0.0;
+	budget = parseFloat(localStorage.getItem("budget")) || 0;
 	expenseList = JSON.parse(localStorage.getItem("expenseList")) || [];
 
 	expense = expenseList.length
 		? expenseList.reduce((acc, curr) => acc + curr.amount, 0)
-		: 0.0;
+		: 0;
 
 	remainingBudget = budget - expense;
 
@@ -96,7 +97,7 @@ function handleExpenseForm(e) {
 			: amount + expense;
 
 	if (totalAmount === budget) {
-		alert("Your're close exceeding your budget");
+		alert("Your're about to exhaust your budget");
 	}
 
 	if (totalAmount > budget) {
@@ -149,6 +150,7 @@ function handleExpenseForm(e) {
 	expenseTitle.value = "";
 	resetCategory();
 	expenseModal.classList.remove("isOpen");
+	overlay.classList.remove("isOpen");
 	displayExpenses();
 }
 
@@ -164,6 +166,7 @@ expenseForm.addEventListener("submit", handleExpenseForm);
 
 newTransactionBtn.addEventListener("click", () => {
 	expenseModal.classList.toggle("isOpen");
+	overlay.classList.toggle("isOpen");
 	amountExpense.focus();
 });
 
@@ -171,8 +174,13 @@ expenseModal.addEventListener("click", (e) => {
 	const modal = e.target.closest("#modal");
 
 	if (e.target === modal) {
-		expenseModal.classList.remove("isOpen");
+		resetExpenseForm();
+		
+
 	}
+});
+overlay.addEventListener("click", () => {
+	resetExpenseForm();
 });
 budgetFormContainer.addEventListener("click", (e) => {
 	const modal = e.target.closest("#budgetContainer");
@@ -212,6 +220,7 @@ transactionList.addEventListener("click", (e) => {
 	const { amount, category, title } = transaction;
 
 	expenseModal.classList.toggle("isOpen");
+	overlay.classList.toggle("isOpen");
 	expenseForm.dataset.type = "edit";
 	expenseForm.dataset.editId = id;
 
@@ -267,14 +276,14 @@ function displayExpenses() {
 	expenseList.forEach((expense) => {
 		const { amount, category, date, id, title } = expense;
 
-		const markup = `<li class="p-[1em] rounded-[4px] md:grid md:grid-cols-[repeat(4,_1fr)_auto] md:gap-[1em] bg-listItem" id="expenseItem">
+		const markup = `<li class="expenseItem" id="expenseItem">
                   <p>
                     <span class="cardTitleHeader">Title:</span>
                     <span class="capitalize">${title}</span>
                   </p>
                   <p class="flex">
                     <span class="cardTitleHeader">Amount:</span>
-										<img src="/naira.svg" alt="currency" class="icon" />
+										<img src="./images/naira.svg" alt="currency" class="icon" />
                     <span>${amount}</span>
                   </p>
                   <p>
@@ -286,14 +295,14 @@ function displayExpenses() {
                     <span class="cardTitleHeader">Date:</span>
                     <span>${date}</span>
                   </p>
-                  <section class="flex items-center gap-4 mt-4 md:mt-0">
+                  <section class="edit_del_btns_container">
   
-                    <button id="editBtn" data-id=${id}>
-											<img src="/edit.svg" alt="currency" class="icon" />
+                    <button id="editBtn" class="editBtn" data-id=${id}>
+											<img src="./images/edit.svg" alt="currency" class="icon" />
 										</button>
   
-                    <button id="delBtn" data-id=${id}>
-											<img src="/delete1.svg" alt="currency" class="icon__del" />
+                    <button id="delBtn" class="delBtn" data-id=${id}>
+											<img src="./images/delete1.svg" alt="currency" class="icon__del" />
 										</button>
                   </section>
                 </li>`;
@@ -325,4 +334,5 @@ function resetExpenseForm() {
 	expenseForm.dataset.type = "";
 	resetCategory();
 	expenseModal.classList.remove("isOpen");
+	overlay.classList.remove("isOpen");
 }

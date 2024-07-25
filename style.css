@@ -1,346 +1,418 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 :root {
-	--text: #dceafa;
-	--background: #020910;
-	--primary: #8fc5ef;
-	--secondary: #951c16;
-	--accent: #e3dc42;
-  --background-alt: #09131b;
-  --listItem: #200d12;
+	--text: #eaeff4;
+	--background: #0c1218;
+	--primary: #a0bbd4;
+	--secondary: #33587a;
+	--accent: #4a85bb;
+	--listItem: #14202b;
+	--background-alt: #131a22;
 
-
-  --text: #fcf8d5;
---background: #111001;
---primary: #f7ef7c;
---secondary: #1ba00a;
---accent: #33f35d;
-
---text: #eaeff4;
---background: #0c1218;
---primary: #a0bbd4;
---secondary: #33587a;
---accent: #4a85bb;
---listItem: #14202b;
---background-alt: #131a22;
-
+	box-sizing: border-box;
 }
-@layer components {
-
-  .logo {
-    width: 1em;
-    margin-right: .5em;
-    filter: invert(.5)sepia(1)hue-rotate(80deg)saturate(10);
-  }
-  .icon {
-    width: 1em;
-    filter: invert(.5)sepia(1)hue-rotate(80deg)saturate(10);
-
-  }
-  .icon__del {
-    width: 1.2em;
-    filter: invert(.5)sepia(1)hue-rotate(300deg)saturate(10);
-  }
-  .projectName {
-    font-weight: bolder;
-    font-size: 1.5rem;
-    text-shadow: 5px 5px 4px #000;
-    display: flex;
-  } 
+body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1rem;
 }
-/* */
-/* .name {
-  color: #33f35d;
-} */
+*,
+*::before,
+*::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+img {
+	max-width: 100%;
+}
+input {
+  border: 0;
+}
+button {
+	cursor: pointer;
+	border: 0;
+	background-color: transparent;
+  color: inherit;
+}
+ul {
+	list-style: none;
+}
+.container {
+	max-width: 1440px;
+	display: grid;
+	grid-template-columns: 1fr 10fr 1fr;
+	position: relative;
+	min-height: 100vh;
+	background-color: var(--background);
+
+	color: var(--text);
+	z-index: 1;
+}
+.container::before {
+	content: "";
+	z-index: -1;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 10em;
+	background-color: var(--listItem);
+}
+.contents {
+	grid-column: 2;
+	position: relative;
+	max-width: 800px;
+	margin-inline: auto;
+	width: 100%;
+}
+.logo {
+	width: 1em;
+	margin-right: 0.5em;
+	filter: invert(0.5) sepia(1) hue-rotate(80deg) saturate(10);
+}
+.icon {
+	width: 1em;
+	filter: invert(0.5) sepia(1) hue-rotate(80deg) saturate(10);
+}
+.icon__del {
+	width: 1.2em;
+	filter: invert(0.5) sepia(1) hue-rotate(300deg) saturate(10);
+}
+.projectName {
+	font-weight: bolder;
+	font-size: 1.5rem;
+	text-shadow: 5px 5px 4px #000;
+	display: flex;
+}
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1em 0;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1em;
+	padding: 1em 0;
+	margin-top: 0.5em;
 }
+.header h1 span:nth-of-type(2) {
+	color: #33f35d;
+}
+
 .budgetIcon {
-  font-size: 1.5rem;
-  
-  background-color: var(--accent);
-  border-radius: 50%;
-  width: 1.5em;
-  height: 1.5em;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	font-size: 1.5rem;
+	background-color: var(--accent);
+	border-radius: 50%;
+	width: 1.5em;
+	height: 1.5em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text);
+  border: 2px solid var(--text);
+}
+.budgetIcon:hover {
+  border: 1px solid var(--text);
+	background-color: var(--secondary);
 }
 .cta {
-  background-color: var(--accent);
-  color: var(--text);
-  padding: .5em 1.2em;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
-  display: none;
+	background-color: var(--accent);
+	color: var(--text);
+	padding: 1em 1.5em;
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
+	display: none;
+	font-size: 1rem;
 }
 .cta__alt {
-  background-color: var(--accent);
-  color: var(--text);
-  padding: .5em 1.2em;
-  border-radius: 4px;
-  text-decoration: none;
-  transition: background-color 0.3s ease;
+	background-color: var(--accent);
+	color: var(--text);
+	padding: 0.5em 1.2em;
+	border-radius: 4px;
+	text-decoration: none;
+	transition: background-color 0.3s ease;
 }
 .cta:hover {
-  background-color: var(--secondary);
+	background-color: var(--secondary);
 }
 
 .hasBudget {
-  display: inline-block;
+	display: inline-block;
 }
 
-.topHeader {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1em;
-  margin-top: 3em;
+.displayFinances {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 1em;
+	margin-top: 3em;
 }
+
 .card {
-  background-color: var(--secondary);
-  color: var(--text);
-  padding: 1em;
-  border-radius: 4px;
-  margin-bottom: 1em;
+	background-color: var(--secondary);
+	color: var(--text);
+	padding: 1em;
+	border-radius: 4px;
+	margin-bottom: 1em;
 
-  position: relative;
-  display: flex;
-  align-items: center;
+	position: relative;
+	display: flex;
+	align-items: center;
 }
-.card header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  width: 100%;
+.card__header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+	gap: 2em;
+}
+.card p {
+	display: flex;
+	align-items: center;
+}
+.remainingEl {
+	color: #33f35d;
+}
+.expensesEl {
+	color: #fe433a;
 }
 .addBudget {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  padding: 0 .4em;
-  display: none;
-  z-index: 2;
-  background-color: rgba(0,0,0,0.5);
-
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	padding: 0 0.4em;
+	display: none;
+	z-index: 2;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 .budgetContainer {
-  grid-column: 2;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  max-width: 800px;
-  width: 100%;
-  margin-inline: auto;
+	grid-column: 2;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	max-width: 800px;
+	width: 100%;
+	margin-inline: auto;
 }
-.form_field {
-  align-self: start;
-  display: flex;
-  max-width: 180px;
-  width: 100%;
-  margin-top: 11em;
-}
-.isEditingBudget {
-  display: grid;
-  grid-template-columns: 1fr 10fr 1fr;
-}
-.closeBudget {
-  position: absolute;
-  left: 50%;
-  top: 1.3em;
-  transform: translateX(50%);
-  font-size: 2em;
-  transform: rotate(45deg);
-}
-.addBudget input {
-  width: 100%;
-  padding: .4em 0em .4em .8em;
-  border-radius: 5em 0 0 5em;
-  color: var(--background);
-}
-.addBudgetBtn {
-  background-color: var(--accent);
-  padding: .4em .8em;
-  border-radius: 0 5em 5em 0;
-  text-transform: capitalize;
+.budgetForm {
+	align-self: start;
+	display: flex;
+	max-width: 180px;
+	width: 100%;
+	margin-top: 11em;
 
 }
+.isEditingBudget {
+	display: grid;
+	grid-template-columns: 1fr 10fr 1fr;
+}
+
+.addBudget input {
+	width: 100%;
+
+  padding: .6em;
+	border-radius: 5em 0 0 5em;
+	color: var(--background);
+  font-size: 1rem;
+}
+.addBudgetBtn {
+	background-color: var(--accent);
+	padding: 0.4em 1em;
+	border-radius: 0 5em 5em 0;
+	text-transform: capitalize;
+  color: var(--text);
+  font-size: 1rem;
+  transition: all .3s linear;
+}
+.addBudgetBtn:hover {
+	background-color: var(--secondary);
+}
 .transactions {
-  margin: 3em 0;
-  display: none;
-  /* display: grid;
-  grid-template-columns: repeat(4, 1fr) auto;
-  gap: 1em; */
+	margin: 3em 0;
+	display: none;
 }
 .hasMadeTransaction {
-  display: block;
+	display: block;
 }
 
 .transaction__header {
-  margin: 3em 0 0;
+	margin: 3em 0 0;
 }
 
 .expenseItem {
-
-  background-color: var(--listItem);
-  padding: 1em;
-  border-radius: 4px;
+	background-color: var(--listItem);
+	padding: 1em;
+	border-radius: 4px;
+}
+.flex {
+	display: flex;
+	align-items: center;
+}
+.capitalize {
+	text-transform: capitalize;
 }
 .cardTitleHeader {
-  font-weight: bold;
-  opacity: .6;
+	font-weight: bold;
+	opacity: 0.6;
 }
 .first {
-  display: none;
+	display: none;
 }
 
-
-/* desktop */
-/* table */
 .transactionList {
-  margin-top: 1em;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-  gap: 1em;
+	margin-top: 1em;
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 1em;
 }
 
 .message {
-  max-width: 400px;
-  margin-inline: auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1em;
+	max-width: 400px;
+	margin-inline: auto;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1em;
 }
 .message p {
-  font-size: 2rem;
-  text-align: center;
+	font-size: 2rem;
+	text-align: center;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 8;
+  display: none;
 }
 
 .modal {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  min-height: 100vh;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  padding: 0.5em;
-  color: var(--text);
-  display: none;
+	position: absolute;
+	top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+	background-color: rgba(0, 0, 0, 0.5);
+	padding: 0.5em;
+	color: var(--text);
+	display: none;
+	z-index: 20;
 }
 .isOpen {
-  display: grid;
-  place-content: center;
+	display: grid;
+	place-content: center;
 }
 .form {
-  background-color: var(--listItem);
-  padding: 1em;
-  border-radius: 1em;
-  display: flex;
-  flex-direction: column;
-  gap: 1em;
-  max-width: 400px;
-  margin-inline: auto;
+	background-color: var(--listItem);
+	padding: 1em;
+	border-radius: 1em;
+	display: flex;
+	flex-direction: column;
+	gap: 1em;
+	max-width: 400px;
+	margin-inline: auto;
 }
 @media (min-width: 500px) {
-  .form {
-  padding: 2em;
-
-  }
+	.form {
+		padding: 2em;
+	}
 }
 .form header {
-  margin-bottom: 1em;
+	margin-bottom: 1em;
 }
 .form h1 {
-  font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 @media (min-width: 500px) {
-  .form h1 {
-    font-size: 2rem;
-  }
+	.form h1 {
+		font-size: 2rem;
+	}
 }
-.form__field input{
-  padding: .5em 2em;
-  border-radius: 4em;
-  width: 100%;
-  color: var(--background);
-
+.form__field input {
+	padding: .5em 2em;
+	border-radius: 4em;
+	width: 100%;
+	color: var(--background);
+	font-size: 1rem;
 }
 .category h1 {
-  font-size: 1.5em;
-  opacity: .6;
+	font-size: 1.5em;
+	opacity: 0.6;
 }
 .options {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1em;
-  margin: 1em 0;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 1em;
+	margin: 1em 0;
 }
 .options > section {
-  position: relative;
+	position: relative;
 }
 .options input {
-  position: absolute;
-  visibility: hidden;
+	position: absolute;
+	visibility: hidden;
 }
 .options input:checked ~ label span {
-  background-color:  var(--accent);
-
+	background-color: var(--accent);
 }
 .options label {
-  display: flex;
-  align-items: center;
-  font-size: 0.75rem;
-  cursor: pointer;
+	display: flex;
+	align-items: center;
+	font-size: 0.75rem;
+	cursor: pointer;
+  font-size: .8rem;
 }
 .options label span {
-  border: 1px solid var(--accent);
-  padding: 0.2em .8em;
-  border-radius: 0 1em 1em 0;
+	border: 1px solid var(--accent);
+	padding: 0.2em 0.8em;
+	border-radius: 0 1em 1em 0;
 
 }
 .options label:hover span {
-  background-color:  var(--accent);
+	background-color: var(--accent);
 }
 .submit {
-  background-color:  var(--accent);
-  padding: .5em 2em;
-  border-radius: 4em;
-  justify-self: flex-end;
+	background-color: var(--accent);
+	padding: .5em 2em;
+	border-radius: 4em;
+	justify-self: flex-end;
+	font-size: 1rem;
 }
 .submit:hover {
-  background-color:  var(--secondary);
+	background-color: var(--secondary);
+}
+.edit_del_btns_container {
+	display: flex;
+	align-items: center;
+	gap: 0.5em;
+	margin-top: 1em;
 }
 @media (min-width: 768px) {
-  .expenseItem.first {
-    background-color: transparent;
-    margin-top: 1em;
-  }
-  .cardTitleHeader {
-    display: none;
-  }
-  .transactionList {
-    display: flex;
-    flex-direction: column;
-    margin-top: 0;
-  }
+	.expenseItem.first {
+		background-color: transparent;
+		margin-top: 1em;
+	}
+	.cardTitleHeader {
+		display: none;
+	}
+	.transactionList {
+		display: flex;
+		flex-direction: column;
+		margin-top: 0;
+	}
 
-  .expenseItem {
-
-    display: grid;
-    grid-template-columns: repeat(4, 1fr) auto;
-    gap: 1em;
-  }
-  .btns p {
-    visibility: hidden;
-  }
+	.expenseItem {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr) auto;
+		gap: 1em;
+	}
+	.btns p {
+		visibility: hidden;
+	}
+	.edit_del_btns_container {
+		margin-top: 0;
+	}
 }

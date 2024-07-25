@@ -2,108 +2,87 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<link rel="icon" type="image/svg+xml" href="/vite.svg" />
+		<link rel="icon" type="image/svg+xml" href="./images/bank.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link href="./src/output.css" rel="stylesheet" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+			rel="stylesheet"
+		/>
 
-		<script
-			src="https://kit.fontawesome.com/2d132899e6.js"
-			crossorigin="anonymous"
-		></script>
+		<link href="./style.css" rel="stylesheet" />
 
 		<title>ExpenseEase</title>
 	</head>
 	<body>
-		<main
-			id="app"
-			class="max-w-[1400px] grid grid-cols-[1fr_10fr_1fr] relative min-h-screen bg-background text-text z-1 before:-z-1 before:content-[''] before:absolute before:top-[0] before:left-[0] before:w-full before:h-[10em] before:bg-listItem"
-		>
-			<section class="col-[2] relative max-w-[800px] mx-auto w-full">
-				<header
-					class="flex justify-between items-center gap-[1em] px-[0] py-[1em] flex-wrap mt-1"
-				>
+		<main id="app" class="container">
+			<section class="contents">
+				<header class="header">
 					<h1 class="projectName">
-						<img src="/bank.svg" alt="expenseEase logo" class="logo" />
+						<img src="./images/bank.svg" alt="expenseEase logo" class="logo" />
 						<span>Expense</span><span class="text-[#33f35d]">Ease</span>
 					</h1>
 
-					<button
-						class="bg-accent text-text rounded no-underline transition-[background-color] duration-[0.3s] ease-[ease] hidden px-[1.2em] py-[0.5em] hover:bg-secondary"
-						id="newTransactionBtn"
-					>
-						New Transaction
-					</button>
+					<button class="cta" id="newTransactionBtn">New Transaction</button>
 				</header>
 				<section>
-					<section
-						class="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-[1em] mt-[3em]"
-					>
-
-						<section
-							class="relative open bg-secondary text-text rounded flex items-center mb-[1em] p-[1em]"
-						>
-							<header
-								class="flex justify-between items-center flex-wrap w-full gap-2"
-							>
-								<p class="flex items-center">
+					<section class="displayFinances">
+						<section class="card">
+							<header class="card__header">
+								<p>
 									Budget:
-									<img src="/naira.svg" alt="currency" class="icon" /><span
-										id="budgetEl"
-									></span>
+									<img
+										src="./images/naira.svg"
+										alt="currency"
+										class="icon"
+									/><span id="budgetEl"></span>
 								</p>
-								<button
-									id="showBudget"
-									class="text-2xl bg-accent w-[1.5em] h-[1.5em] flex items-center justify-center rounded-full"
-								>
-									+
-								</button>
+								<button id="showBudget" class="budgetIcon">+</button>
 							</header>
 						</section>
-						<section
-							class="bg-secondary text-text rounded relative flex items-center mb-[1em] p-[1em]"
-						>
-							<p class="flex items-center">
+						<section class="card">
+							<p class="">
 								Remaining:
-								<img src="/naira.svg" alt="currency" class="icon" /><span
-									id="remainingEl"
-									class="text-[#33f35d]"
-								></span>
+								<img
+									src="./images/naira.svg"
+									alt="currency"
+									class="icon"
+								/><span id="remainingEl" class="remainingEl"></span>
 							</p>
 						</section>
-						<section
-							class="bg-secondary text-text rounded relative flex items-center mb-[1em] p-[1em]"
-						>
-							<p class="flex items-center">
+						<section class="card">
+							<p class="">
 								Expenses:
-								<img src="/naira.svg" alt="currency" class="icon" />
-								<span id="expensesEl" class="text-[#fe433a]"></span>
+								<img src="./images/naira.svg" alt="currency" class="icon" />
+								<span id="expensesEl" class="expensesEl"></span>
 							</p>
 						</section>
 					</section>
 
-					<section class="hidden mx-0 my-[3em]" id="transactions">
-						<header class="mt-[3em] mb-0 mx-0">
+					<section class="transactions" id="transactions">
+						<header class="transaction__header">
 							<h1>Transactons</h1>
-							<section class="p-[1em] rounded-[4px] hidden md:bg-transparent md:mt-[1em]  md:grid md:grid-cols-[repeat(4,1fr)_auto] md:gap-[1em]" id="expenseItem__header">
-
+							<section class="expenseItem first">
 								<p>Title</p>
 								<p>Amount</p>
 								<p>Category</p>
 								<p>Date</p>
-								<section>
-									<p class="md:invisible">buttons</p>
+								<section class="btns">
+									<p>buttons</p>
 								</section>
 							</section>
 						</header>
 
-						<ul class=" grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-[1em] mt-[1em] md:flex md:flex-col md:mt-0" id="transactionList"></ul>
+						<ul class="transactionList" id="transactionList"></ul>
 					</section>
 				</section>
 			</section>
 		</main>
+		<!-- add budget -->
 		<section class="addBudget" id="budgetFormContainer">
 			<section class="budgetContainer" id="budgetContainer">
-				<form class="form_field " id="budgetForm">
+				<form class="budgetForm" id="budgetForm">
 					<label for="budget"></label>
 					<input type="number" placeholder="20000" id="budgetInput" />
 					<button id="submitBudget" class="addBudgetBtn">add</button>
@@ -111,15 +90,15 @@
 			</section>
 		</section>
 		<!-- add a new expense -->
-		<section class="fixed w-full min-h-screen h-full bg-[rgba(0,0,0,0.5)] text-text p-[0.5em] top-0 hidden" id="modal">
-			<form class="bg-listItem flex flex-col gap-[1em] max-w-[400px] p-[1em] rounded-[1em] mx-auto min-[500px]:p-[2em]" id="expenseForm" data-type="" data-editId="">
-				<header class=" mb-[1em]">
-					<h1 class="text-2xl min-[500px]:text-[2rem]">Add a new expense</h1>
+		<section class="modal" id="modal">
+			<form class="form" id="expenseForm" data-type="" data-editId="">
+				<header class="">
+					<h1 class="">Add a new expense</h1>
 					<p>its a good habit to keep track of your expenditure</p>
 				</header>
 
 				<!-- placeholder that when you interact with input field moves to the top border of the input field -->
-				<section class="">
+				<section class="form__field">
 					<label for="amount"></label>
 					<input
 						type="number"
@@ -130,7 +109,7 @@
 						class="w-full text-background px-[2em] py-[0.5em] rounded-[4em]"
 					/>
 				</section>
-				<section class="">
+				<section class="form__field">
 					<label for="expenseTitle"></label>
 					<input
 						type="text"
@@ -141,12 +120,12 @@
 					/>
 				</section>
 
-				<section class="">
-					<h1 class="text-[1.5em] opacity-60">Category</h1>
-					<section class="flex items-center flex-wrap gap-[1em] mx-0 my-[1em] options">
-						<section class="relative">
+				<section class="category">
+					<h1 class="">Category</h1>
+					<section class="options">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="food"
@@ -156,9 +135,9 @@
 								<span>Food</span>
 							</label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="drinks"
@@ -168,9 +147,9 @@
 								<span>Drinks</span>
 							</label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="fuel"
@@ -180,9 +159,9 @@
 								<span>Fuel</span>
 							</label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="travel"
@@ -190,9 +169,9 @@
 							/>
 							<label for="category__travel"> <span>Travel</span> </label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="Groceries"
@@ -200,9 +179,9 @@
 							/>
 							<label for="category__groceries"> <span>Groceries</span> </label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="electricity"
@@ -212,9 +191,9 @@
 								<span>Electricity</span>
 							</label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="data"
@@ -222,9 +201,9 @@
 							/>
 							<label for="category__data"> <span>Data</span> </label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="airtime"
@@ -232,9 +211,9 @@
 							/>
 							<label for="category__airtime"> <span>Airtime</span> </label>
 						</section>
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="shopping"
@@ -243,9 +222,9 @@
 							<label for="category__shopping"> <span>Shopping</span> </label>
 						</section>
 
-						<section class="relative">
+						<section class="">
 							<input
-							class="absolute invisible"
+								class=""
 								type="radio"
 								name="category"
 								value="other"
@@ -257,9 +236,11 @@
 						</section>
 					</section>
 				</section>
-				<button class="bg-accent justify-self-end px-[2em] py-[0.5em] rounded-[4em] hover:bg-secondary" id="submit">Add</button>
+				<button class="submit" id="submit">Add</button>
 			</form>
 		</section>
+		<section class="overlay" id="overlay"></section>
+
 		<!-- message -->
 		<!-- <section class="message" id="message">
 						<section>
@@ -269,6 +250,6 @@
 							</button>
 						</section>
 					</section> -->
-		<script type="module" src="/main.js"></script>
+		<script src="/app.js"></script>
 	</body>
 </html>
