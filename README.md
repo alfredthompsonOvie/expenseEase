@@ -57,6 +57,25 @@ Users should be able to:
 - CSS Grid
 - Mobile-first workflow
 
+## Installation
+
+To get started with the project, follow these steps:
+
+1. **Clone the Repository**
+
+   ```bash
+   git clone https://github.com/yourusername/expenseEase.git
+   cd expenseEase
+   ```
+
+3. **Start the Development Server**
+
+  - install the live server extension
+  - go to the index.html and right click then select open with live server
+
+4. **Access the Website**
+
+   Open your browser and navigate to `http://localhost:5500`.
 
 
 ### Continued development
